@@ -54,8 +54,12 @@ module.exports = {
             to: path.resolve(__dirname, 'dist')
           }
         ]
-      })
+      }),
 
-  ]
+  ],
+
+  devServer: {
+    contentBase: path.resolve(__dirname, 'dist'),
+  }
 
 };

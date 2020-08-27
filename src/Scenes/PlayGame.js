@@ -7,10 +7,15 @@ export default class PlayGame extends Phaser.Scene{
   }
 
   preload = () =>{
+    this.load.image('sky', 'assets/sky.png');
+    this.load.image('ground', 'assets/platform.png');
+    this.load.spritesheet('p1', 
+    'assets/p1-spritesheet.png',
+    { frameWidth: 72, frameHeight: 98 }
+);
   }
 
   create = () =>{
-    console.log('Create is working');
-    this.add.text(100, 100, 'Hello Phaser!', { fill: '#0f0' });
+    this.add.image(400, 300, 'sky');
   }
 }
