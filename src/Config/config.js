@@ -3,11 +3,14 @@ export default {
   width: 800,
   height: 600,
   scene: [],
-  //backgroundColor: 0x444444,
-  backgroundColor: '#ff0',
+  backgroundColor: '#222',
 
   // physics settings
   physics: {
-      default: "arcade"
+      default: 'arcade',
+      arcade: {
+        gravity: { y: 300 },
+        debug: false
+    }
   }
 };
