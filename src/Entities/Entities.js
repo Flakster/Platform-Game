@@ -5,9 +5,8 @@ class Entity extends Phaser.GameObjects.Sprite {
     super(scene, x, y, key);
     this.scene = scene;
     this.scene.add.existing(this);
-    this.scene.physics.world.enableBody(this, 0);
+    this.scene.physics.world.enable(this);
     this.setData('type', type);
-    this.setData('isDead', false);
   }
 }
 

@@ -78,18 +78,28 @@ export default class PreloaderScene extends Phaser.Scene {
     });
 
     // Wait some time to see the info
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
+    this.timedEvent = this.time.delayedCall(2000, this.ready, [], this);
 
-    
+    this.load.bitmapFont('arcade', 'assets/arcade.png', 'assets/arcade.xml');
     this.load.image('sky', 'assets/sky.png');
     this.load.image('ground', 'assets/platform.png');
     this.load.image('phaserLogo', 'assets/logo.png');
+    this.load.image('blueButton1', 'assets/ui/blue_button02.png');
+    this.load.image('blueButton2', 'assets/ui/blue_button03.png');
     this.load.image('box', 'assets/ui/grey_box.png');
     this.load.image('checkedBox', 'assets/ui/blue_boxCheckmark.png');
-    this.load.audio('bgMusic', ['assets/TownTheme.mp3']);
+    this.load.audio('bgMusic', ['assets/GreySector1.mp3']);
     this.load.spritesheet('p1', 
       'assets/p1_spritesheet.png',
       { frameWidth: 73, frameHeight: 95 }
+    );    
+    this.load.spritesheet('fly', 
+    'assets/fly_spritesheet.png',
+      { frameWidth: 75, frameHeight: 36 }
+    );
+    this.load.spritesheet('slime', 
+    'assets/slime_spritesheet.png',
+      { frameWidth: 52, frameHeight: 28 }
     );
   };
     
@@ -100,7 +110,7 @@ export default class PreloaderScene extends Phaser.Scene {
   ready () {
     this.readyCount++;
     if (this.readyCount === 2) {
-      this.scene.start('TitleScene');
+      this.scene.start('Title');
     }
   }
 
