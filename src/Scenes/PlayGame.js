@@ -5,6 +5,7 @@ import Slime from '../Entities/Slime';
 let player;
 let cursors;
 let platform;
+let speed = -200;
 
 export default class PlayGame extends Phaser.Scene{
   
@@ -31,6 +32,10 @@ export default class PlayGame extends Phaser.Scene{
     this.leaderBoard = this.add
     .bitmapText(10, 10, 'arcade', `Score: ${this.score}`, 14)
     .setTint(0xCCCCCC);
+
+    this.gameOverText = this.add.text(400,70,'Game Over',{fontSize:'50px',fill:'#FFF'});
+    this.gameOverText.setOrigin(0.5);
+    this.gameOverText.visible = false;
 
     this.anims.create({
       key: 'left',
@@ -65,6 +70,12 @@ export default class PlayGame extends Phaser.Scene{
     });
 
     this.anims.create({
+      key: 'hurt',
+      frames: [ { key: 'p1', frame: 6} ],
+      frameRate: 10,
+    });
+
+    this.anims.create({
       key: 'fly',
       frames: this.anims.generateFrameNumbers('fly', { start: 0, end: 1 }),
       frameRate: 20,
@@ -83,6 +94,7 @@ export default class PlayGame extends Phaser.Scene{
     this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
     this.bgMusic.play();
     let temp = 0;
+
     this.time.addEvent({
       delay:1000,
       callback() {
@@ -98,17 +110,28 @@ export default class PlayGame extends Phaser.Scene{
           this.baddies.add(badGuy);
         }
 
-        // disposal of the baddies
         for (let i = 0; i < this.baddies.getChildren().length; i += 1){
           const badGuy = this.baddies.getChildren()[i];
-          badGuy.update();
-          if (badGuy.x < 50){
+          if(badGuy.creature === 'FLY'){
+            badGuy.anims.play('fly',true);
+          }
+          else{
+            badGuy.anims.play('walk',true);
+          }
+          if ((this.score >= 50) && (this.score % 50) === 0){
+            speed -= 25;
+          }
+
+          badGuy.body.velocity.x = speed;
+
+          // disposal of the baddies
+
+          if (badGuy.x < 30){
+            this.score += 10;
+            this.leaderBoard.setText(`SCORE: ${this.score}`);
             badGuy.destroy();
           }
         }
-        this.physics.add.overlap(player, this.baddies, () =>{
-          this.timedEvent = this.time.delayedCall(2000, this.die, [], this);
-        });
       },
       callbackScope: this,
       loop: true,
@@ -116,21 +139,33 @@ export default class PlayGame extends Phaser.Scene{
   }
 
   update = () =>{
-
+    let last = 0; 
     for (let i = 0; i < this.baddies.getChildren().length; i += 1){
       const badGuy = this.baddies.getChildren()[i];
-      if(badGuy.creature === 'FLY'){
-        badGuy.anims.play('fly',true);
-      }
-      else{
-        badGuy.anims.play('walk',true);
-      }
-      badGuy.body.velocity.x =-300;
-      if (badGuy.x === 200){
-        this.score += 10;
-        this.leaderBoard.setText(`SCORE: ${this.score}`);
+
+      if (badGuy.x > 400){
+        if (badGuy.x - last < 5){
+          badGuy.destroy();
+          last = 0;
+        }
+        else
+        {
+          last = badGuy.x;
+        }
       }
 
+      if (badGuy.x > 190 && badGuy.x < 210){
+        if(badGuy.creature === 'FLY'){
+          if (!cursors.down.isDown || player.y < 160 ){
+            player.anims.play('hurt',true);
+            this.die();
+          }
+        }
+        else if (player.y > 160){
+          this.die();
+        }
+
+      }
     }
 
     if (player.body.touching.down)
@@ -145,7 +180,7 @@ export default class PlayGame extends Phaser.Scene{
     
     if (cursors.up.isDown && player.body.touching.down)
     {
-      player.setVelocityY(-300);
+      player.setVelocityY(-350);
     }
 
     if (cursors.down.isDown && player.body.touching.down)
@@ -158,7 +193,17 @@ export default class PlayGame extends Phaser.Scene{
   }
 
   die = () => {
-    console.log('Could die')
+    this.physics.pause();
+    this.gameOverText.visible = true;
+    this.bgMusic.stop();
+    this.time.addEvent({
+      delay:2000,
+      callback() {
+        this.scene.start('Title');
+      },
+      callbackScope: this,
+      loop: false,
+    });
   }
 
 }
