@@ -7,7 +7,7 @@
     "build": "webpack",
     "test": "jest",
     "start:dev": "webpack-dev-server",
-    "start" : "npx webpack"
+    "start": "npx webpack"
   },
   "repository": {
     "type": "git",
@@ -38,6 +38,7 @@
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "jest": "^26.4.2",
+    "jest-canvas-mock": "^2.2.0",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-csstree-validator": "^1.8.0",
@@ -48,5 +49,10 @@
   },
   "dependencies": {
     "phaser": "^3.24.1"
+  },
+
+  "jest": {
+    "setupFiles": ["jest-canvas-mock"]
   }
+  
 }

@@ -119,7 +119,9 @@ export default class PlayGame extends Phaser.Scene{
   update = () =>{
 
     // check that flies and slimes don't show up at the same time   
-    let last = 0; 
+    let last = 0;
+    let pos = 0;
+    let arrowDownPressed = false;
     for (let i = 0; i < this.baddies.getChildren().length; i += 1){
       const badGuy = this.baddies.getChildren()[i];
       if (badGuy.x > 400){
@@ -134,15 +136,17 @@ export default class PlayGame extends Phaser.Scene{
       }
 
       // check collides
+      pos = player.y;
+      arrowDownPressed = cursors.down.isDown
       if (badGuy.x > 190 && badGuy.x < 210){
         if(badGuy.creature === 'FLY'){
-          if (!cursors.down.isDown || player.y < 160 ){
+          if (this.touchFly(pos,arrowDownPressed)){
             this.die();
           }
         }
-        else if (player.y > 160){
-          this.die();
-        }
+          else if (this.touchSlime(pos)){
+            this.die();
+          }
       }
     }
 
@@ -165,6 +169,22 @@ export default class PlayGame extends Phaser.Scene{
     if (cursors.down.isDown && player.body.touching.down)
     {
       player.anims.play('squat',true)
+    }
+  }
+
+  touchFly = (y, key) => {
+    if (!key || y < 160){
+      return true;
+    } else{
+      return false;
+    }
+  }
+
+  touchSlime = (y) => {
+    if (y > 160){
+      return true;
+    } else{
+      return false;
     }
   }
 
