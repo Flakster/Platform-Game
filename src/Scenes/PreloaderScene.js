@@ -88,30 +88,25 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('box', 'assets/ui/grey_box.png');
     this.load.image('checkedBox', 'assets/ui/blue_boxCheckmark.png');
     this.load.audio('bgMusic', ['assets/GreySector1.mp3']);
-    this.load.spritesheet('p1', 
+    this.load.spritesheet('p1',
       'assets/p1_spritesheet.png',
-      { frameWidth: 73, frameHeight: 95 }
-    );    
-    this.load.spritesheet('fly', 
-    'assets/fly_spritesheet.png',
-      { frameWidth: 75, frameHeight: 36 }
-    );
-    this.load.spritesheet('slime', 
-    'assets/slime_spritesheet.png',
-      { frameWidth: 52, frameHeight: 28 }
-    );
+      { frameWidth: 73, frameHeight: 95 });
+    this.load.spritesheet('fly',
+      'assets/fly_spritesheet.png',
+      { frameWidth: 75, frameHeight: 36 });
+    this.load.spritesheet('slime',
+      'assets/slime_spritesheet.png',
+      { frameWidth: 52, frameHeight: 28 });
   };
-    
-  init () {
+
+  init() {
     this.readyCount = 0;
   }
-   
-  ready () {
-    this.readyCount++;
+
+  ready() {
+    this.readyCount += 1;
     if (this.readyCount === 2) {
       this.scene.start('Title');
     }
   }
-
-
 }
