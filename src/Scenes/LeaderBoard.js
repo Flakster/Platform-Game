@@ -29,7 +29,6 @@ export default class LeaderBoard extends Phaser.Scene {
 
   update = () => {
     if (this.keyENTER.isDown) {
-      this.sys.game.globals.score = 0;
       this.scene.start('Title');
     }
   };

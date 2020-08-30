@@ -49,7 +49,7 @@ export default class ScoreScene extends Phaser.Scene {
 
     this.scoreInfo = this.add.text(400,280,`Updating scores....`,{fontSize:'20px',fill:'#FFF'});
     this.scoreInfo.setOrigin(0.5);
-
+    this.sys.game.globals.score = 0;
     this.time.addEvent({
       delay: 1000,
       callback() {
