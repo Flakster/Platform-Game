@@ -40,7 +40,9 @@ To get a local copy up and running follow these simple example steps:
 
 5. Install dependencies with npm install.
 
-6. Execute npm run start:dev.
+6. To execute run this command
+
+`npm run start:dev`
 
 7. In your web browser go to the address http://localhost:8080
 
