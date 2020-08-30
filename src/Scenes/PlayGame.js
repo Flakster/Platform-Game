@@ -27,28 +27,14 @@ export default class PlayGame extends Phaser.Scene{
 
     this.baddies = this.add.group();
 
-    //this.score = this.sys.game.globals.score;
-    this.score = 0;
-    this.leaderBoard = this.add
-    .bitmapText(10, 10, 'arcade', `Score: ${this.score}`, 14)
-    .setTint(0xCCCCCC);
+    this.sys.game.globals.score = 0;
+    this.scoreText = this.add.text(15,15,'score: 0',{fontSize:'30px',fill:'#FFF'});
 
     this.gameOverText = this.add.text(400,70,'Game Over',{fontSize:'50px',fill:'#FFF'});
     this.gameOverText.setOrigin(0.5);
     this.gameOverText.visible = false;
 
-    this.anims.create({
-      key: 'left',
-      frames: this.anims.generateFrameNumbers('p1', { start: 0, end: 3 }),
-      frameRate: 10,
-      repeat: -1
-    });
-
-    this.anims.create({
-      key: 'turn',
-      frames: [ { key: 'p1', frame: 4 } ],
-      frameRate: 20
-    });
+    // animations
 
     this.anims.create({
       key: 'right',
@@ -70,12 +56,6 @@ export default class PlayGame extends Phaser.Scene{
     });
 
     this.anims.create({
-      key: 'hurt',
-      frames: [ { key: 'p1', frame: 6} ],
-      frameRate: 10,
-    });
-
-    this.anims.create({
       key: 'fly',
       frames: this.anims.generateFrameNumbers('fly', { start: 0, end: 1 }),
       frameRate: 20,
@@ -91,16 +71,16 @@ export default class PlayGame extends Phaser.Scene{
 
     cursors = this.input.keyboard.createCursorKeys();
     this.physics.add.collider(player, platform);
-    this.bgMusic = this.sound.add('bgMusic', { volume: 0.5, loop: true });
+    this.bgMusic = this.sound.add('bgMusic', { volume: 0.1, loop: true });
     this.bgMusic.play();
-    let temp = 0;
 
+    // Baddies creation timed loop
     this.time.addEvent({
       delay:1000,
       callback() {
         let badGuy = null;
-        let ran = Phaser.Math.Between(0, 2);
-        switch(ran){
+        let random = Phaser.Math.Between(0, 2);
+        switch(random){
           case 0: badGuy = new Fly(this,900,140,'fly');
             break;
           case 1: badGuy = new Slime(this,900, 222, 'slime')
@@ -118,17 +98,15 @@ export default class PlayGame extends Phaser.Scene{
           else{
             badGuy.anims.play('walk',true);
           }
-          if ((this.score >= 50) && (this.score % 50) === 0){
-            speed -= 25;
-          }
 
+          // game speed increase 
+          speed = -300 - this.sys.game.globals.score;
           badGuy.body.velocity.x = speed;
 
           // disposal of the baddies
-
           if (badGuy.x < 30){
-            this.score += 10;
-            this.leaderBoard.setText(`SCORE: ${this.score}`);
+            this.sys.game.globals.score += 10;
+            this.scoreText.setText(`Score: ${this.sys.game.globals.score}`);
             badGuy.destroy();
           }
         }
@@ -139,12 +117,13 @@ export default class PlayGame extends Phaser.Scene{
   }
 
   update = () =>{
+
+    // check that flies and slimes don't show up at the same time   
     let last = 0; 
     for (let i = 0; i < this.baddies.getChildren().length; i += 1){
       const badGuy = this.baddies.getChildren()[i];
-
       if (badGuy.x > 400){
-        if (badGuy.x - last < 5){
+        if (badGuy.x - last < 4){
           badGuy.destroy();
           last = 0;
         }
@@ -154,20 +133,20 @@ export default class PlayGame extends Phaser.Scene{
         }
       }
 
+      // check collides
       if (badGuy.x > 190 && badGuy.x < 210){
         if(badGuy.creature === 'FLY'){
           if (!cursors.down.isDown || player.y < 160 ){
-            player.anims.play('hurt',true);
             this.die();
           }
         }
         else if (player.y > 160){
           this.die();
         }
-
       }
     }
 
+    // play animations according with the user input
     if (player.body.touching.down)
     {
       player.anims.play('right', true);
@@ -187,9 +166,6 @@ export default class PlayGame extends Phaser.Scene{
     {
       player.anims.play('squat',true)
     }
-
-
-
   }
 
   die = () => {
@@ -197,13 +173,12 @@ export default class PlayGame extends Phaser.Scene{
     this.gameOverText.visible = true;
     this.bgMusic.stop();
     this.time.addEvent({
-      delay:2000,
+      delay:1500,
       callback() {
-        this.scene.start('Title');
+        this.scene.start('Score');
       },
       callbackScope: this,
       loop: false,
     });
   }
-
 }

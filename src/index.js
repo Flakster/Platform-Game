@@ -4,18 +4,19 @@ import BootScene from './Scenes/BootScene';
 import PreloaderScene from './Scenes/PreloaderScene';
 import TitleScene from './Scenes/TitleScene';
 import PlayGame from './Scenes/PlayGame';
-import Model from './Model';
+import ScoreScene from './Scenes/ScoreScene';
+import LeaderBoard from './Scenes/LeaderBoard';
 
 class Game extends Phaser.Game {
   constructor() {
     super(config);
     this.globals = { score: 0 };
-    const model = new Model();
-    this.globals = { model };
     this.scene.add('Boot', BootScene);
     this.scene.add('Preloader', PreloaderScene);
     this.scene.add('Title', TitleScene);
     this.scene.add('PlayGame', PlayGame);
+    this.scene.add('Score', ScoreScene);
+    this.scene.add('LeaderBoard', LeaderBoard);
     this.scene.start('Boot');
   }
 }
