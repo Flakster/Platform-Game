@@ -23,6 +23,7 @@ The game consists of our main character, a planetary traveller called P1, who th
   * Webpack
   * Babel
   * Phaser 3
+  * Jest
   
 ## Getting Started:
 
@@ -42,6 +43,12 @@ To get a local copy up and running follow these simple example steps:
 6. Execute npm run start:dev.
 
 7. In your web browser go to the address http://localhost:8080
+
+## To run the unit tests
+
+In your console type:
+
+ `npm run test` 
 
 ## See a live demo [Here](https://musing-kepler-db18c5.netlify.app/)
 
