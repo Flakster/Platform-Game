@@ -13,9 +13,7 @@ export default class PlayGame extends Phaser.Scene{
     super("PlayGame");
   }
 
-  preload = () =>{
-  }
-
+  
   create = () =>{
     this.add.image(400, 300, 'sky');
     platform = this.physics.add.staticGroup();

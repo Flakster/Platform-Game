@@ -1,4 +1,3 @@
-import Phaser from 'phaser';
 import Entity from './Entities';
 
 class Slime extends Entity {

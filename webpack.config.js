@@ -32,16 +32,16 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: 
+            presets:
             [
               '@babel/preset-env',
               {
                 plugins: ['@babel/plugin-proposal-class-properties'],
-              }
-            ]
-          }
-        }
-      }
+              },
+            ],
+          },
+        },
+      },
     ],
   },
 
@@ -51,15 +51,16 @@ module.exports = {
         patterns: [
           {
             from: path.resolve(__dirname, 'assets', '**', '*'),
-            to: path.resolve(__dirname, 'dist')
-          }
-        ]
-      }),
+            to: path.resolve(__dirname, 'dist'),
+          },
+        ],
+      },
+    ),
 
   ],
 
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-  }
+  },
 
 };

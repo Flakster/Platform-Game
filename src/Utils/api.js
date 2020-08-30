@@ -1,3 +1,4 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import 'regenerator-runtime';
 
 const baseUrl = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/';
@@ -6,34 +7,34 @@ const apiKey = 'u4iAT4NCsx8NBCk4E1HV';
 const url = `${baseUrl}games/${apiKey}/scores/`;
 
 
-const getKey = async() => {
+const getKey = async () => {
   const apiParam = {
-    name: 'Planetary Traveller'
+    name: 'Planetary Traveller',
   };
   try {
     const response = await fetch(
       `${baseUrl}games/`,
       {
-        method: 'POST',        
+        method: 'POST',
         mode: 'cors',
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Request-Method': 'POST',
         },
         body: JSON.stringify(apiParam),
-      }
+      },
     );
     const data = await response.json();
     return data;
   } catch (error) {
-    return error
+    return error;
   }
-}
+};
 
 const setScore = async (playerName, score) => {
   const apiParam = {
     user: playerName,
-    score: score,
+    score,
   };
 
   try {
