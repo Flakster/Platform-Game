@@ -54,6 +54,8 @@ In your console type:
 
 ## See a live demo [Here](https://musing-kepler-db18c5.netlify.app/)
 
+## Video [Presentation of the project](https://www.loom.com/share/3421203f7f9f4e11947b4dadb5097b91) 
+
 ## Show your support
 Give a ⭐️ if you like this project!
  
