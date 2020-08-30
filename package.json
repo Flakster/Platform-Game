@@ -6,7 +6,8 @@
   "scripts": {
     "build": "webpack",
     "test": "jest",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "start" : "npx webpack"
   },
   "repository": {
     "type": "git",
