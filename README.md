@@ -56,6 +56,10 @@ In your console type:
 
 ## Video [Presentation of the project](https://www.loom.com/share/3421203f7f9f4e11947b4dadb5097b91) 
 
+## Potential future features
+
+ - Mobile version with multitouch control
+
 ## Show your support
 Give a ⭐️ if you like this project!
  
