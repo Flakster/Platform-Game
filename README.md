@@ -59,6 +59,7 @@ In your console type:
 ## Potential future features
 
  - Mobile version with multitouch control
+ - Background improvement with stars and other moving objects
 
 ## Show your support
 Give a ⭐️ if you like this project!
