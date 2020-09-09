@@ -1,7 +1,7 @@
 # Platform-Game
 This is a classic 2D platform game built with Javascript and Phaser 3. Very similar to the Chrome jumping dinosaur. The high scores are stored in and retrieved from an leaderboard service API.
 
-The game consists of our main character, a planetary traveller called P1, who this time is running over the surface of a far away planet populated by evil flies and slimes. Our voyager should avoid touching this creatures by jumping (up arrow) and squating (down arrow) according to the case. The goal is advance as much as possible into the planet.
+The game consists of our main character, a planetary traveler called P1, who this time is running over the surface of a faraway planet populated by evil flies and slugs. Our voyager should avoid touching these creatures by jumping (up arrow) and squatting (down arrow) according to the case. The goal is to advance as much as possible into the planet.
 
 
 ## Screenshots
